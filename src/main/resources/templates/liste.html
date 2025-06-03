@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Liste des Employés</title>
+	<style>
+	    body { font-family: sans-serif; margin: 20px; }
+	    table { width: 100%; border-collapse: collapse; margin-bottom: 20px; }
+	    th, td { border: 1px solid #ddd; padding: 8px; text-align: left; }
+	    th { background-color: #f2f2f2; }
+	    a { text-decoration: none; color: #007bff; margin-right: 10px;}
+	    .actions a { margin-right: 5px; }
+	    .add-button { display: inline-block; padding: 10px 15px; background-color: #28a745; color: white; border-radius: 5px; margin-bottom: 20px;}
+	</style>
+</head>
+<body>
+    <h1>Liste des Employés</h1>
+
+    <a th:href="@{/employes/ajouter}" class="add-button">Ajouter un Employé</a>
+
+    <table>
+        <thead>
+            <tr>
+				<th>ID</th><th>Nom</th><th>Prénom</th>
+                <th>Âge</th><th>Ville</th><th>Email</th>
+                <th>Service</th><th>Actions</th>    
+            </tr>
+        </thead>
+        <tbody>
+            <!-- (6.a.i) Itération sur la liste des employés -->
+            <tr th:each="employe : ${employes}">
+                <td th:text="${employe.id}">1</td>
+                <td th:text="${employe.nom}">mohamed</td>
+                <td th:text="${employe.prenom}">Houcht</td>
+                <td th:text="${employe.age}">22</td>
+                <td th:text="${employe.ville}">Khenifra</td>
+                <td th:text="${employe.email}">mohamed.Houcht@example.com</td>
+                <td th:text="${employe.service}">IT</td>
+                <td class="actions">
+                    <!-- (6.a.ii) Liens pour éditer et supprimer -->
+                    <a th:href="@{/employes/editer/{id}(id=${employe.id})}">Modifier</a>
+                    <a th:href="@{/employes/supprimer/{id}(id=${employe.id})}"
+                       onclick="return confirm('Êtes-vous sûr de vouloir supprimer cet employé ?');">Supprimer</a>
+                </td>
+            </tr>
+            <tr th:if="${#lists.isEmpty(employes)}">
+                <td colspan="8" style="text-align:center;">Aucun employé trouvé.</td>
+            </tr>
+        </tbody>
+    </table>
+</body>
+</html>

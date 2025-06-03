@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Modifier un Employé</title>
+	 <style>
+	    body { font-family: sans-serif; margin: 20px; }
+	    .form-container { width: 50%; margin: auto; padding: 20px; border: 1px solid #ccc; border-radius: 5px; }
+	    .form-group { margin-bottom: 15px; }
+	    .form-group label { display: block; margin-bottom: 5px; }
+	    .form-group input[type="text"], .form-group input[type="number"], .form-group input[type="email"] { width: calc(100% - 22px); padding: 10px; border: 1px solid #ccc; border-radius: 4px; }
+	    .form-actions button { padding: 10px 15px; border: none; border-radius: 4px; cursor: pointer; }
+	    .form-actions .save { background-color: #007bff; color: white; }
+	    .form-actions .cancel { background-color: #6c757d; color: white; margin-left: 10px;}
+	</style>
+</head>
+<body>
+    <div class="form-container">
+        <h1>Modifier l'Employé</h1>
+        <!-- (6.b) Formulaire lié à l'objet "employe" avec action POST vers "/employes/sauver" -->
+        <form th:action="@{/employes/sauver}" th:object="${employe}" method="post">
+            <!-- Champ caché pour l'ID, important pour la mise à jour -->
+            <input type="hidden" th:field="*{id}" />
+
+            <div class="form-group">
+                <label for="nom">Nom:</label>
+                <input type="text" id="nom" th:field="*{nom}" required/>
+            </div>
+            <div class="form-group">
+                <label for="prenom">Prénom:</label>
+                <input type="text" id="prenom" th:field="*{prenom}" required/>
+            </div>
+            <div class="form-group">
+                <label for="age">Âge:</label>
+                <input type="number" id="age" th:field="*{age}" required min="18"/>
+            </div>
+            <div class="form-group">
+                <label for="ville">Ville:</label>
+                <input type="text" id="ville" th:field="*{ville}"/>
+            </div>
+            <div class="form-group">
+                <label for="email">Email:</label>
+                <input type="email" id="email" th:field="*{email}" required/>
+            </div>
+            <div class="form-group">
+                <label for="service">Service:</label>
+                <input type="text" id="service" th:field="*{service}"/>
+            </div>
+            <div class="form-actions">
+                <button type="submit" class="save">Mettre à jour</button>
+                 <a th:href="@{/employes}" class="cancel" style="padding: 10px 15px; text-decoration: none; border-radius: 4px;">Annuler</a>
+            </div>
+        </form>
+    </div>
+</body>
+</html>
